@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>AtomFable — Simple tools that just work</title>
+  <meta name="description" content="AtomFable is a growing catalog of browser-based utilities — privacy-first tools for everyday tasks." />
+  <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+  <style type="text/tailwindcss">
+    @theme {
+      --font-sans: "Segoe UI", system-ui, -apple-system, sans-serif;
+    }
+    .tool-card {
+      display: flex;
+      flex-direction: column;
+      height: 100%;
+      text-decoration: none;
+      border-radius: 1rem;
+      border: 1px solid rgb(231 229 228);
+      background-color: rgb(255 255 255);
+      padding: 1.25rem 1.375rem;
+      transition: border-color 240ms, box-shadow 240ms, transform 240ms;
+    }
+    a.tool-card:hover {
+      border-color: rgb(253 186 116);
+      transform: translateY(-2px);
+      box-shadow: 0 12px 40px -14px rgb(251 146 60 / 0.2);
+    }
+    .tool-card.is-disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      pointer-events: none;
+    }
+    .cat-btn {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      width: 100%;
+      text-align: left;
+      padding: 0.5rem 0.75rem;
+      border-radius: 0.625rem;
+      font-size: 0.875rem;
+      color: rgb(87 83 78);
+      transition: background-color 160ms, color 160ms;
+    }
+    .cat-btn:hover {
+      background-color: rgb(255 251 235);
+      color: rgb(41 37 36);
+    }
+    .cat-btn[aria-current="true"] {
+      background-color: rgb(255 251 235);
+      color: rgb(180 83 9);
+      font-weight: 600;
+    }
+    .cat-pill[aria-current="true"] {
+      background-color: rgb(255 251 235);
+      border-color: rgb(253 230 138);
+      color: rgb(180 83 9);
+      font-weight: 600;
+    }
+    .tool-card[data-hidden="true"] {
+      display: none;
+    }
+  </style>
+</head>
+<body class="min-h-screen bg-[#faf8f5] text-stone-800 font-sans antialiased selection:bg-amber-200/50">
+
+  <div class="pointer-events-none fixed inset-0 -z-10 overflow-hidden" aria-hidden="true">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_90%_60%_at_50%_-10%,rgba(251,191,36,0.14),transparent)]"></div>
+    <div class="absolute bottom-0 right-0 w-[520px] h-[320px] bg-orange-200/25 blur-3xl rounded-full"></div>
+    <div class="absolute top-24 left-0 w-[400px] h-[280px] bg-teal-200/20 blur-3xl rounded-full"></div>
+  </div>
+
+  <header class="sticky top-0 z-50 bg-[#faf8f5]/90 border-b border-stone-200/70 backdrop-blur-md">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-14 flex items-center justify-between">
+      <a href="https://atomfable.com" class="flex items-center gap-2.5 group">
+        <div class="w-8 h-8 flex items-center justify-center rounded-full bg-amber-100/80 border border-amber-200/80 group-hover:bg-amber-100 transition-colors" aria-hidden="true">
+          <span class="text-sm leading-none">✦</span>
+        </div>
+        <span class="text-sm font-semibold text-stone-700 group-hover:text-amber-700 transition-colors">
+          Atom<span class="text-amber-600">Fable</span>
+        </span>
+      </a>
+      <span class="text-xs text-stone-500 hidden sm:inline">Browser tools · privacy-first</span>
+    </div>
+  </header>
+
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 py-8 sm:py-10 pb-20">
+    <div class="lg:flex lg:gap-10 lg:items-start">
+
+      <!-- Sidebar: categories (desktop) -->
+      <aside class="hidden lg:block lg:w-52 shrink-0 sticky top-20" aria-label="Tool categories">
+        <p class="text-[11px] font-semibold uppercase tracking-wider text-stone-400 mb-3 px-1">Categories</p>
+        <nav id="sidebar-cats" class="space-y-0.5">
+          <button type="button" class="cat-btn" data-category="all" aria-current="true">
+            <span>All tools</span>
+            <span class="text-xs text-stone-400 tabular-nums" data-count-for="all">3</span>
+          </button>
+          <button type="button" class="cat-btn" data-category="encoding">
+            <span>Encoding &amp; Data</span>
+            <span class="text-xs text-stone-400 tabular-nums" data-count-for="encoding">1</span>
+          </button>
+          <button type="button" class="cat-btn" data-category="images">
+            <span>Images</span>
+            <span class="text-xs text-stone-400 tabular-nums" data-count-for="images">1</span>
+          </button>
+          <button type="button" class="cat-btn" data-category="text">
+            <span>Text &amp; Code</span>
+            <span class="text-xs text-stone-400 tabular-nums" data-count-for="text">1</span>
+          </button>
+        </nav>
+
+        <div class="mt-8 rounded-xl border border-stone-200/90 bg-white/70 p-4 text-xs text-stone-500 leading-relaxed">
+          <p class="font-medium text-stone-700 mb-1">Growing toolkit</p>
+          <p>Each tool has its own page. Browser-only tools are marked — others may need sign-in later (e.g. AI features).</p>
+        </div>
+      </aside>
+
+      <!-- Main -->
+      <div class="flex-1 min-w-0">
+        <div class="mb-8">
+          <h1 class="text-2xl sm:text-3xl font-bold tracking-tight text-stone-900 leading-snug mb-3">
+            Find a tool, get it done.
+          </h1>
+          <p class="text-stone-600 text-base leading-relaxed max-w-xl">
+            A catalog of utilities for everyday tasks — encoding, images, text, and more.
+            Pick a category or search; each tool's page explains how it works and what it needs from you.
+          </p>
+        </div>
+
+        <!-- Search -->
+        <div class="relative mb-4">
+          <label for="tool-search" class="sr-only">Search tools</label>
+          <span class="absolute left-3.5 top-1/2 -translate-y-1/2 text-stone-400 pointer-events-none" aria-hidden="true">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.35-4.35M11 18a7 7 0 100-14 7 7 0 000 14z"/></svg>
+          </span>
+          <input
+            id="tool-search"
+            type="search"
+            placeholder="Search tools… e.g. base64, image, sanitize"
+            autocomplete="off"
+            class="w-full pl-10 pr-4 py-2.5 rounded-xl border border-stone-200 bg-white text-sm text-stone-800 placeholder:text-stone-400 shadow-sm focus:outline-none focus:border-amber-300 focus:ring-2 focus:ring-amber-100"
+          />
+        </div>
+
+        <!-- Category pills (mobile / tablet) -->
+        <div id="pill-cats" class="flex gap-2 overflow-x-auto pb-2 mb-6 lg:hidden scrollbar-none" role="tablist" aria-label="Filter by category">
+          <button type="button" class="cat-pill shrink-0 text-sm px-3 py-1.5 rounded-full border border-stone-200 bg-white text-stone-600" data-category="all" aria-current="true">All</button>
+          <button type="button" class="cat-pill shrink-0 text-sm px-3 py-1.5 rounded-full border border-stone-200 bg-white text-stone-600" data-category="encoding">Encoding</button>
+          <button type="button" class="cat-pill shrink-0 text-sm px-3 py-1.5 rounded-full border border-stone-200 bg-white text-stone-600" data-category="images">Images</button>
+          <button type="button" class="cat-pill shrink-0 text-sm px-3 py-1.5 rounded-full border border-stone-200 bg-white text-stone-600" data-category="text">Text &amp; Code</button>
+        </div>
+
+        <div class="flex items-baseline justify-between gap-3 mb-4">
+          <h2 class="text-sm font-semibold text-stone-800" id="results-label">All tools</h2>
+          <span class="text-xs text-stone-400" id="results-count">3 tools</span>
+        </div>
+
+        <!-- Tool grid -->
+        <div id="tool-grid" class="grid sm:grid-cols-2 gap-3 mb-10">
+
+          <a href="https://base64.atomfable.com"
+             class="tool-card group"
+             data-category="encoding"
+             data-search="base64 url encode decode encoding data binary text image">
+            <div class="flex-1">
+              <div class="flex items-start justify-between gap-2 mb-2">
+                <p class="text-stone-900 font-semibold text-[0.95rem] group-hover:text-amber-700 transition-colors">Base64 &amp; URL Codec</p>
+                <span class="text-amber-500 text-base shrink-0 group-hover:translate-x-0.5 transition-transform" aria-hidden="true">→</span>
+              </div>
+              <p class="text-sm text-stone-500 leading-relaxed">
+                Encode or decode text, code, and images. Paste in, get results — all on your machine.
+              </p>
+            </div>
+            <div class="mt-3 flex flex-wrap gap-1.5">
+              <span class="text-[10px] font-medium text-teal-800 px-2 py-0.5 rounded-full bg-teal-50 border border-teal-100">Live</span>
+              <span class="text-[10px] font-medium text-amber-800 px-2 py-0.5 rounded-full bg-amber-50 border border-amber-100">Browser-only · no sign-up</span>
+              <span class="text-[10px] text-stone-500 px-2 py-0.5 rounded-full bg-stone-50 border border-stone-100">Encoding</span>
+            </div>
+          </a>
+
+          <div class="tool-card is-disabled"
+               data-category="images"
+               data-search="image compress jpg png optimize shrink photo">
+            <div class="flex-1">
+              <p class="text-stone-600 font-semibold text-[0.95rem] mb-2">Image Compressor</p>
+              <p class="text-sm text-stone-400 leading-relaxed">
+                Shrink JPG and PNG in the browser — nothing uploaded. Polishing the details now.
+              </p>
+            </div>
+            <div class="mt-3 flex flex-wrap gap-1.5">
+              <span class="text-[10px] font-medium text-stone-500 px-2 py-0.5 rounded-full bg-stone-50 border border-stone-100">In progress</span>
+              <span class="text-[10px] text-stone-500 px-2 py-0.5 rounded-full bg-stone-50 border border-stone-100">Images</span>
+            </div>
+          </div>
+
+          <div class="tool-card is-disabled"
+               data-category="text"
+               data-search="code sanitizer strip secrets keys paths metadata redact">
+            <div class="flex-1">
+              <p class="text-stone-600 font-semibold text-[0.95rem] mb-2">Code Sanitizer</p>
+              <p class="text-sm text-stone-400 leading-relaxed">
+                Remove keys, paths, and sensitive bits from code or screenshots before you share.
+              </p>
+            </div>
+            <div class="mt-3 flex flex-wrap gap-1.5">
+              <span class="text-[10px] font-medium text-stone-500 px-2 py-0.5 rounded-full bg-stone-50 border border-stone-100">Coming soon</span>
+              <span class="text-[10px] text-stone-500 px-2 py-0.5 rounded-full bg-stone-50 border border-stone-100">Text &amp; Code</span>
+            </div>
+          </div>
+        </div>
+
+        <p id="empty-state" class="hidden text-center py-12 text-sm text-stone-500">
+          No tools match your search. Try another keyword or category.
+        </p>
+
+        <section class="rounded-2xl border border-stone-200/90 bg-white/80 p-6 shadow-[0_1px_3px_rgba(28,25,23,0.04)]">
+          <h2 class="text-base font-semibold text-stone-800 mb-1">What we aim for</h2>
+          <p class="text-sm text-stone-500 mb-4">Defaults for the toolkit — some future tools may ask for an account when the job requires it.</p>
+          <ul class="grid sm:grid-cols-3 gap-4 text-sm text-stone-600">
+            <li>
+              <span class="text-base" aria-hidden="true">🔒</span>
+              <strong class="block text-stone-800 font-medium mt-1">Privacy-first</strong>
+              <span class="text-stone-500">We prefer processing in your browser when a tool allows it.</span>
+            </li>
+            <li>
+              <span class="text-base" aria-hidden="true">🌿</span>
+              <strong class="block text-stone-800 font-medium mt-1">Clean pages</strong>
+              <span class="text-stone-500">No ad clutter or tracking scripts on our sites.</span>
+            </li>
+            <li>
+              <span class="text-base" aria-hidden="true">⚡</span>
+              <strong class="block text-stone-800 font-medium mt-1">Light &amp; fast</strong>
+              <span class="text-stone-500">Straight to the task — no bloat around the edges.</span>
+            </li>
+          </ul>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <footer class="border-t border-stone-200/80 py-8 text-center">
+    <p class="text-xs text-stone-400">© 2026 AtomFable · Small tools, made with care</p>
+  </footer>
+
+  <script>
+    const CATEGORY_LABELS = {
+      all: 'All tools',
+      encoding: 'Encoding & Data',
+      images: 'Images',
+      text: 'Text & Code',
+    };
+
+    let activeCategory = 'all';
+    const searchInput = document.getElementById('tool-search');
+    const toolGrid = document.getElementById('tool-grid');
+    const tools = [...toolGrid.querySelectorAll('.tool-card')];
+    const emptyState = document.getElementById('empty-state');
+    const resultsLabel = document.getElementById('results-label');
+    const resultsCount = document.getElementById('results-count');
+
+    function setActiveCategory(cat) {
+      activeCategory = cat;
+      document.querySelectorAll('button[data-category]').forEach((el) => {
+        el.setAttribute('aria-current', el.dataset.category === cat ? 'true' : 'false');
+      });
+      applyFilters();
+    }
+
+    function applyFilters() {
+      const q = searchInput.value.trim().toLowerCase();
+      let visible = 0;
+
+      tools.forEach((card) => {
+        const matchCat = activeCategory === 'all' || card.dataset.category === activeCategory;
+        const haystack = (card.dataset.search + ' ' + card.textContent).toLowerCase();
+        const matchSearch = !q || haystack.includes(q);
+        const show = matchCat && matchSearch;
+        card.dataset.hidden = show ? 'false' : 'true';
+        if (show) visible++;
+      });
+
+      emptyState.classList.toggle('hidden', visible > 0);
+      toolGrid.classList.toggle('hidden', visible === 0);
+
+      const label = CATEGORY_LABELS[activeCategory] || 'Tools';
+      resultsLabel.textContent = q ? `Results for “${searchInput.value.trim()}”` : label;
+      resultsCount.textContent = visible === 1 ? '1 tool' : `${visible} tools`;
+    }
+
+    document.querySelectorAll('#sidebar-cats .cat-btn, #pill-cats .cat-pill').forEach((btn) => {
+      btn.addEventListener('click', () => setActiveCategory(btn.dataset.category));
+    });
+
+    searchInput.addEventListener('input', applyFilters);
+    applyFilters();
+  </script>
+</body>
+</html>
