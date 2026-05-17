@@ -17,13 +17,36 @@
       color: #111827;
       font-family: "Segoe UI", system-ui, sans-serif;
     }
-    
+    .site-shell {
+      width: 100%;
+      max-width: 90rem;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    @media (min-width: 1280px) {
+      .site-shell {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+    }
+
     /* 标志性的新粗犷主义（Neo-brutalism）核心样式 */
     .comic-border {
       border: 4px solid #111827 !important;
       box-shadow: 6px 6px 0px #111827 !important;
       border-radius: 4px !important;
       background: #ffffff;
+    }
+    #category-nav button {
+      background: #ffffff;
+      color: #111827;
+      cursor: pointer;
+    }
+    #category-nav button.is-active {
+      background: #f97316 !important;
+      color: #ffffff !important;
     }
 
     .comic-card {
@@ -165,7 +188,7 @@
       }
     }
     .hero-banner-copy-inner {
-      max-width: 80rem;
+      max-width: 90rem;
       margin: 0 auto;
     }
     .hero-tagline {
@@ -174,6 +197,18 @@
       line-height: 1.6;
       max-width: 42rem;
       color: #374151;
+    }
+    .hero-tagline-lead {
+      display: block;
+      font-weight: 800;
+      color: #111827;
+    }
+    .hero-tagline-follow {
+      display: block;
+      margin-top: 0.55rem;
+      font-size: 0.94em;
+      font-weight: 700;
+      color: #6b7280;
     }
     @media (min-width: 768px) {
       .hero-tagline {
@@ -200,16 +235,22 @@
     .search-wrap {
       flex: 1 1 auto;
       min-width: 0;
-      max-width: 42rem;
-      margin-left: 0.75rem;
+      max-width: 50rem;
+      margin-left: 1rem;
       margin-right: 0.75rem;
       display: flex;
       align-items: center;
     }
     @media (min-width: 768px) {
       .search-wrap {
-        margin-left: 1.25rem;
-        margin-right: 1.25rem;
+        margin-left: 2.5rem;
+        margin-right: 1.5rem;
+      }
+    }
+    @media (min-width: 1024px) {
+      .search-wrap {
+        margin-left: 3.5rem;
+        max-width: 54rem;
       }
     }
     .search-box {
@@ -292,8 +333,8 @@
 <body class="p-0 m-0 min-h-screen">
 
   <header class="bg-white border-b-4 border-gray-900 sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 header-bar flex items-center justify-between gap-2 md:gap-4">
-      <a href="/zh/" class="brand-lockup flex items-center gap-2.5 text-4xl md:text-5xl font-black tracking-tight shrink-0 leading-none">
+    <div class="site-shell header-bar flex items-center justify-between gap-3 md:gap-6">
+      <a href="/zh/" class="brand-lockup flex items-center gap-3 text-4xl md:text-5xl font-black tracking-tight shrink-0 leading-none mr-1 md:mr-2">
         <span class="brand-mark w-11 h-11 md:w-14 md:h-14 comic-border shrink-0" aria-hidden="true"></span>
         <h1 id="brand-word" class="brand-word hidden sm:inline m-0 p-0 font-black tracking-tight leading-none"></h1>
       </a>
@@ -334,8 +375,9 @@
     </div>
     <div class="hero-banner-copy">
       <div class="hero-banner-copy-inner text-center md:text-left">
-        <p class="hero-tagline font-bold">
-          ✨ 横幅画了三天，代码写了三行。AtomFable：一个假装很大的 indie 工具站。
+        <p class="hero-tagline">
+          <span class="hero-tagline-lead">✨ 画了三天图，代码只写了三行。</span>
+          <span class="hero-tagline-follow">— 我相信 AtomFable 以后会成为很牛X的独立工作室。</span>
         </p>
       </div>
     </div>
@@ -343,49 +385,49 @@
 
 
 
-  <main class="max-w-7xl mx-auto px-4 py-10">
+  <main class="site-shell py-10">
     <div class="flex flex-wrap gap-3 mb-8" id="category-nav">
-      <button class="comic-border px-4 py-1.5 text-sm font-black bg-orange-500 text-white" data-cat="all">🏠 全部小工具</button>
-      <button class="comic-border px-4 py-1.5 text-sm font-black" data-cat="encoding">⌁ 现代编解码</button>
-      <button class="comic-border px-4 py-1.5 text-sm font-black" data-cat="images">🖼 图像狠人压缩</button>
-      <button class="comic-border px-4 py-1.5 text-sm font-black" data-cat="text">◇ 代码脱敏/洗白</button>
+      <button type="button" class="comic-border px-4 py-1.5 text-sm font-black is-active" data-cat="all">🏠 全部小工具</button>
+      <button type="button" class="comic-border px-4 py-1.5 text-sm font-black" data-cat="encoding">⌁ 现代编解码</button>
+      <button type="button" class="comic-border px-4 py-1.5 text-sm font-black" data-cat="images">🖼 图像狠人压缩</button>
+      <button type="button" class="comic-border px-4 py-1.5 text-sm font-black" data-cat="text">◇ 代码脱敏/洗白</button>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="tools-grid">
       <a href="https://base64.atomfable.com" class="comic-card flex flex-col overflow-hidden" data-category="encoding">
-        <div class="bg-orange-50 p-4 border-b-3 border-gray-900 font-mono text-sm font-bold text-orange-700">
-          aGVsbG8= &rarr; decode me 🎭
+        <div class="bg-orange-50 p-4 border-b-3 border-gray-900 text-sm font-bold text-orange-700">
+          文字编码 / 解码 · 不上传服务器
         </div>
         <div class="p-5 flex-1 flex flex-col justify-between gap-4">
           <div>
-            <h3 class="text-lg font-black">Base64 & URL 编解码工具</h3>
-            <p class="text-sm text-gray-600 mt-1">支持十六进制、JWT 荷载解析——全在你的当前浏览器页签纯前端处理，绝不上传。</p>
+            <h3 class="text-lg font-black">文字编解码</h3>
+            <p class="text-sm text-gray-600 mt-1">把文字转成编码，或把编码还原成文字。只在浏览器里处理，不会上传到服务器。</p>
           </div>
           <span class="text-sm font-black text-orange-600 flex items-center gap-1">立即开启 &rarr;</span>
         </div>
       </a>
 
       <a href="https://image.atomfable.com" class="comic-card flex flex-col overflow-hidden" data-category="images">
-        <div class="bg-blue-50 p-4 border-b-3 border-gray-900 font-mono text-sm font-bold text-blue-700">
-          Squeeze the pixels! -73% 📉
+        <div class="bg-blue-50 p-4 border-b-3 border-gray-900 text-sm font-bold text-blue-700">
+          图片压缩 · 文件更小、尽量保持清晰
         </div>
         <div class="p-5 flex-1 flex flex-col justify-between gap-4">
           <div>
-            <h3 class="text-lg font-black">图片疯狂压缩机</h3>
-            <p class="text-sm text-gray-600 mt-1">丢进去，看着你的 PNG/JPG 瞬间变小。体积缩水了，但清晰度还在，关键是安全。</p>
+            <h3 class="text-lg font-black">图片压缩</h3>
+            <p class="text-sm text-gray-600 mt-1">上传 JPG、PNG 等图片，缩小文件体积，方便分享或节省空间。处理在本地完成。</p>
           </div>
           <span class="text-sm font-black text-orange-600 flex items-center gap-1">立即开启 &rarr;</span>
         </div>
       </a>
 
       <div class="comic-card opacity-60 flex flex-col overflow-hidden" data-category="text">
-        <div class="bg-gray-100 p-4 border-b-3 border-gray-900 font-mono text-sm font-bold text-gray-500">
-          api_key=sk-SECRET &rarr; 🧼 [redacted]
+        <div class="bg-gray-100 p-4 border-b-3 border-gray-900 text-sm font-bold text-gray-500">
+          截图里的密码打码 · 即将上线
         </div>
         <div class="p-5 flex-1 flex flex-col justify-between gap-4">
           <div>
-            <h3 class="text-lg font-black">代码隐私洗白机</h3>
-            <p class="text-sm text-gray-600 mt-1">发截图或开源前，一键自动擦除敏感的代码密钥和线上 Token。正在拼命开发中...</p>
+            <h3 class="text-lg font-black">截图敏感信息打码</h3>
+            <p class="text-sm text-gray-600 mt-1">发截图前自动遮住密码、手机号等敏感内容。功能开发中。</p>
           </div>
           <span class="text-sm font-black text-gray-400">敬请期待...</span>
         </div>
@@ -394,22 +436,21 @@
   </main>
 
   <section class="stage-comics py-8 px-4 md:px-10 w-full">
-    <div class="w-full max-w-7xl mx-auto">
-      <p class="text-xs font-black text-gray-500 mb-4 uppercase tracking-wider">四格分镜 · 和上面横幅同一出戏（收在页底）</p>
+    <div class="site-shell">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
         
         <div class="comic-border overflow-hidden flex flex-col">
-          <div class="bg-white p-2 border-b-2 border-gray-950 font-black text-xs">PANEL 01 // 崩溃边缘</div>
+          <div class="bg-white p-2 border-b-2 border-gray-950 font-black text-xs">心态崩了</div>
           <div class="flex-1 bg-zinc-100 flex items-center justify-center min-h-[180px]">
             <img src="../assets/hero-comic/hero-1-pain.webp" loading="lazy" alt="抓狂" class="w-full h-full object-cover">
           </div>
           <div class="p-3 bg-gray-50 border-t-2 border-gray-950 text-center font-bold text-sm text-red-600">
-            AAAAAAAGH!!! 天天加班心态搞崩！
+            啊啊啊啊啊!!! 天天加班心态搞崩！
           </div>
         </div>
 
         <div class="comic-border overflow-hidden flex flex-col">
-          <div class="bg-white p-2 border-b-2 border-gray-950 font-black text-xs">PANEL 02 // 直达网址</div>
+          <div class="bg-white p-2 border-b-2 border-gray-950 font-black text-xs">打开网站</div>
           <div class="flex-1 bg-zinc-100 flex items-center justify-center min-h-[180px]">
             <img src="../assets/hero-comic/hero-2-type-url.webp" loading="lazy" alt="输入网址" class="w-full h-full object-cover">
           </div>
@@ -419,7 +460,7 @@
         </div>
 
         <div class="comic-border overflow-hidden flex flex-col">
-          <div class="bg-white p-2 border-b-2 border-gray-950 font-black text-xs">PANEL 03 // 瞬间解脱</div>
+          <div class="bg-white p-2 border-b-2 border-gray-950 font-black text-xs">搞定收工</div>
           <div class="flex-1 bg-zinc-100 flex items-center justify-center min-h-[180px]">
             <img src="../assets/hero-comic/hero-3-boom.webp" loading="lazy" alt="完成" class="w-full h-full object-cover">
           </div>
@@ -429,7 +470,7 @@
         </div>
 
         <div class="comic-border overflow-hidden flex flex-col">
-          <div class="bg-white p-2 border-b-2 border-gray-950 font-black text-xs">PANEL 04 // 虚位以待</div>
+          <div class="bg-white p-2 border-b-2 border-gray-950 font-black text-xs">交个朋友</div>
           <div class="flex-1 bg-zinc-100 flex items-center justify-center min-h-[180px]">
             <img src="../assets/hero-comic/hero-4-ad-slot.webp" alt="预留广告位 FUTURE AD SLOT" class="w-full h-full object-cover" loading="lazy">
           </div>
@@ -447,7 +488,7 @@
     </div>
   </section>
   <footer class="border-t-4 border-gray-900 bg-white py-6 text-center text-xs font-bold text-gray-500">
-    © AtomFable · 发疯于表面，硬核于隐私 · 漫画由 AI 倾情赞助
+    © AtomFable · 发疯于表面，清醒于灵魂 · 漫画由 “我”倾情赞助
   </footer>
 
   <div class="login-modal-backdrop" id="login-modal" role="dialog" aria-modal="true" aria-labelledby="login-modal-title" hidden>
@@ -475,12 +516,18 @@
     function updateERunDistance() {
       const run = document.querySelector('.monster-run');
       const search = document.querySelector('.search-box');
-      if (!run || !search) return;
-      const gap = 28;
+      if (!run || !search || !run.offsetParent) return;
+      const gap = 20;
       const dx = search.getBoundingClientRect().left - run.getBoundingClientRect().right - gap;
-      if (dx > 32) {
-        document.documentElement.style.setProperty('--e-run-px', `${Math.round(Math.min(dx, 640))}px`);
+      if (dx > 40) {
+        document.documentElement.style.setProperty('--e-run-px', `${Math.round(Math.min(dx, 720))}px`);
       }
+    }
+
+    function scheduleERunDistance() {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(updateERunDistance);
+      });
     }
 
     // 简单的卡片前端分类过滤
@@ -490,7 +537,8 @@
 
     function doFilter() {
       const searchText = filterInput.value.toLowerCase().trim();
-      const activeCat = document.querySelector('#category-nav button.bg-orange-500').dataset.cat;
+      const activeBtn = document.querySelector('#category-nav button.is-active');
+      const activeCat = activeBtn ? activeBtn.dataset.cat : 'all';
 
       cards.forEach(card => {
         const matchesCat = activeCat === 'all' || card.dataset.category === activeCat;
@@ -506,18 +554,22 @@
 
     navButtons.forEach(btn => {
       btn.onclick = () => {
-        navButtons.forEach(b => b.classList.remove('bg-orange-500', 'text-white'));
-        btn.classList.add('bg-orange-500', 'text-white');
+        navButtons.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
         doFilter();
       };
     });
 
     filterInput.oninput = doFilter;
     initBrandWord();
-    updateERunDistance();
-    window.addEventListener('resize', updateERunDistance);
+    scheduleERunDistance();
+    window.addEventListener('resize', scheduleERunDistance);
     if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(updateERunDistance);
+      document.fonts.ready.then(scheduleERunDistance);
+    }
+    const headerBar = document.querySelector('.header-bar');
+    if (headerBar && typeof ResizeObserver !== 'undefined') {
+      new ResizeObserver(scheduleERunDistance).observe(headerBar);
     }
 
     const loginTeaser = document.getElementById('login-teaser');

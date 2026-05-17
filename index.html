@@ -17,6 +17,20 @@
       color: #111827;
       font-family: "Segoe UI", system-ui, sans-serif;
     }
+    .site-shell {
+      width: 100%;
+      max-width: 90rem;
+      margin-left: auto;
+      margin-right: auto;
+      padding-left: 1rem;
+      padding-right: 1rem;
+    }
+    @media (min-width: 1280px) {
+      .site-shell {
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+      }
+    }
     
     /* 标志性的新粗犷主义（Neo-brutalism）核心样式 */
     .comic-border {
@@ -24,6 +38,15 @@
       box-shadow: 6px 6px 0px #111827 !important;
       border-radius: 4px !important;
       background: #ffffff;
+    }
+    #category-nav button {
+      background: #ffffff;
+      color: #111827;
+      cursor: pointer;
+    }
+    #category-nav button.is-active {
+      background: #f97316 !important;
+      color: #ffffff !important;
     }
 
     .comic-card {
@@ -165,7 +188,7 @@
       }
     }
     .hero-banner-copy-inner {
-      max-width: 80rem;
+      max-width: 90rem;
       margin: 0 auto;
     }
     .hero-tagline {
@@ -174,6 +197,18 @@
       line-height: 1.6;
       max-width: 42rem;
       color: #374151;
+    }
+    .hero-tagline-lead {
+      display: block;
+      font-weight: 800;
+      color: #111827;
+    }
+    .hero-tagline-follow {
+      display: block;
+      margin-top: 0.55rem;
+      font-size: 0.94em;
+      font-weight: 700;
+      color: #6b7280;
     }
     @media (min-width: 768px) {
       .hero-tagline {
@@ -200,16 +235,22 @@
     .search-wrap {
       flex: 1 1 auto;
       min-width: 0;
-      max-width: 42rem;
-      margin-left: 0.75rem;
+      max-width: 50rem;
+      margin-left: 1rem;
       margin-right: 0.75rem;
       display: flex;
       align-items: center;
     }
     @media (min-width: 768px) {
       .search-wrap {
-        margin-left: 1.25rem;
-        margin-right: 1.25rem;
+        margin-left: 2.5rem;
+        margin-right: 1.5rem;
+      }
+    }
+    @media (min-width: 1024px) {
+      .search-wrap {
+        margin-left: 3.5rem;
+        max-width: 54rem;
       }
     }
     .search-box {
@@ -292,8 +333,8 @@
 <body class="p-0 m-0 min-h-screen">
 
   <header class="bg-white border-b-4 border-gray-900 sticky top-0 z-50">
-    <div class="max-w-7xl mx-auto px-4 header-bar flex items-center justify-between gap-2 md:gap-4">
-      <a href="/" class="brand-lockup flex items-center gap-2.5 text-4xl md:text-5xl font-black tracking-tight shrink-0 leading-none">
+    <div class="site-shell header-bar flex items-center justify-between gap-3 md:gap-6">
+      <a href="/" class="brand-lockup flex items-center gap-3 text-4xl md:text-5xl font-black tracking-tight shrink-0 leading-none mr-1 md:mr-2">
         <span class="brand-mark w-11 h-11 md:w-14 md:h-14 comic-border shrink-0" aria-hidden="true"></span>
         <h1 id="brand-word" class="brand-word hidden sm:inline m-0 p-0 font-black tracking-tight leading-none"></h1>
       </a>
@@ -334,8 +375,9 @@
     </div>
     <div class="hero-banner-copy">
       <div class="hero-banner-copy-inner text-center md:text-left">
-        <p class="hero-tagline font-bold">
-          ✨ Spent 3 days on the banner, wrote 3 lines of code. AtomFable: an indie tool site pretending to be a huge deal.
+        <p class="hero-tagline">
+          <span class="hero-tagline-lead">✨ Three days on the banner. Three lines of code.</span>
+          <span class="hero-tagline-follow">— I believe AtomFable will grow into an epic indie studio.</span>
         </p>
       </div>
     </div>
@@ -343,49 +385,49 @@
 
 
 
-  <main class="max-w-7xl mx-auto px-4 py-10">
+  <main class="site-shell py-10">
     <div class="flex flex-wrap gap-3 mb-8" id="category-nav">
-      <button class="comic-border px-4 py-1.5 text-sm font-black bg-orange-500 text-white" data-cat="all">🏠 All tools</button>
-      <button class="comic-border px-4 py-1.5 text-sm font-black" data-cat="encoding">⌁ Encoding</button>
-      <button class="comic-border px-4 py-1.5 text-sm font-black" data-cat="images">🖼 Images</button>
-      <button class="comic-border px-4 py-1.5 text-sm font-black" data-cat="text">◇ Redaction</button>
+      <button type="button" class="comic-border px-4 py-1.5 text-sm font-black is-active" data-cat="all">🏠 All tools</button>
+      <button type="button" class="comic-border px-4 py-1.5 text-sm font-black" data-cat="encoding">⌁ Encoding</button>
+      <button type="button" class="comic-border px-4 py-1.5 text-sm font-black" data-cat="images">🖼 Images</button>
+      <button type="button" class="comic-border px-4 py-1.5 text-sm font-black" data-cat="text">◇ Redaction</button>
     </div>
 
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6" id="tools-grid">
       <a href="https://base64.atomfable.com" class="comic-card flex flex-col overflow-hidden" data-category="encoding">
-        <div class="bg-orange-50 p-4 border-b-3 border-gray-900 font-mono text-sm font-bold text-orange-700">
-          aGVsbG8= &rarr; decode me 🎭
+        <div class="bg-orange-50 p-4 border-b-3 border-gray-900 text-sm font-bold text-orange-700">
+          Encode or decode text · stays on your device
         </div>
         <div class="p-5 flex-1 flex flex-col justify-between gap-4">
           <div>
-            <h3 class="text-lg font-black">Base64 &amp; URL Codec</h3>
-            <p class="text-sm text-gray-600 mt-1">Hex, JWT payloads, and more — all in your browser tab. Nothing gets uploaded.</p>
+            <h3 class="text-lg font-black">Text encoder &amp; decoder</h3>
+            <p class="text-sm text-gray-600 mt-1">Turn text into codes, or turn codes back into readable text. Everything stays in your browser—nothing is uploaded.</p>
           </div>
           <span class="text-sm font-black text-orange-600 flex items-center gap-1">Open tool &rarr;</span>
         </div>
       </a>
 
       <a href="https://image.atomfable.com" class="comic-card flex flex-col overflow-hidden" data-category="images">
-        <div class="bg-blue-50 p-4 border-b-3 border-gray-900 font-mono text-sm font-bold text-blue-700">
-          Squeeze the pixels! -73% 📉
+        <div class="bg-blue-50 p-4 border-b-3 border-gray-900 text-sm font-bold text-blue-700">
+          Make photos smaller · keep them looking sharp
         </div>
         <div class="p-5 flex-1 flex flex-col justify-between gap-4">
           <div>
             <h3 class="text-lg font-black">Image Compressor</h3>
-            <p class="text-sm text-gray-600 mt-1">Drop in PNG/JPG and watch the size shrink. Keeps clarity, stays in your browser.</p>
+            <p class="text-sm text-gray-600 mt-1">Upload JPG or PNG photos to make the file smaller for sharing or saving space. Processed on your device.</p>
           </div>
           <span class="text-sm font-black text-orange-600 flex items-center gap-1">Open tool &rarr;</span>
         </div>
       </a>
 
       <div class="comic-card opacity-60 flex flex-col overflow-hidden" data-category="text">
-        <div class="bg-gray-100 p-4 border-b-3 border-gray-900 font-mono text-sm font-bold text-gray-500">
-          api_key=sk-SECRET &rarr; 🧼 [redacted]
+        <div class="bg-gray-100 p-4 border-b-3 border-gray-900 text-sm font-bold text-gray-500">
+          Hide passwords in screenshots · coming soon
         </div>
         <div class="p-5 flex-1 flex flex-col justify-between gap-4">
           <div>
-            <h3 class="text-lg font-black">Code Redaction</h3>
-            <p class="text-sm text-gray-600 mt-1">Scrub API keys and tokens before screenshots or open source. Building it now…</p>
+            <h3 class="text-lg font-black">Screenshot redaction</h3>
+            <p class="text-sm text-gray-600 mt-1">Automatically hide passwords and other sensitive info before you share a screenshot. Coming soon.</p>
           </div>
           <span class="text-sm font-black text-gray-400">Coming soon</span>
         </div>
@@ -394,12 +436,11 @@
   </main>
 
   <section class="stage-comics py-8 px-4 md:px-10 w-full">
-    <div class="w-full max-w-7xl mx-auto">
-      <p class="text-xs font-black text-gray-500 mb-4 uppercase tracking-wider">Four panels · same story as the banner (footer)</p>
+    <div class="site-shell">
       <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 w-full">
         
         <div class="comic-border overflow-hidden flex flex-col">
-          <div class="bg-white p-2 border-b-2 border-gray-950 font-black text-xs">PANEL 01 // EDGE OF BREAKDOWN</div>
+          <div class="bg-white p-2 border-b-2 border-gray-950 font-black text-xs">Meltdown</div>
           <div class="flex-1 bg-zinc-100 flex items-center justify-center min-h-[180px]">
             <img src="assets/hero-comic/hero-1-pain.webp" loading="lazy" alt="Meltdown" class="w-full h-full object-cover">
           </div>
@@ -409,7 +450,7 @@
         </div>
 
         <div class="comic-border overflow-hidden flex flex-col">
-          <div class="bg-white p-2 border-b-2 border-gray-950 font-black text-xs">PANEL 02 // TYPE THE URL</div>
+          <div class="bg-white p-2 border-b-2 border-gray-950 font-black text-xs">Open the site</div>
           <div class="flex-1 bg-zinc-100 flex items-center justify-center min-h-[180px]">
             <img src="assets/hero-comic/hero-2-type-url.webp" loading="lazy" alt="Typing URL" class="w-full h-full object-cover">
           </div>
@@ -419,7 +460,7 @@
         </div>
 
         <div class="comic-border overflow-hidden flex flex-col">
-          <div class="bg-white p-2 border-b-2 border-gray-950 font-black text-xs">PANEL 03 // INSTANT RELIEF</div>
+          <div class="bg-white p-2 border-b-2 border-gray-950 font-black text-xs">Problem solved</div>
           <div class="flex-1 bg-zinc-100 flex items-center justify-center min-h-[180px]">
             <img src="assets/hero-comic/hero-3-boom.webp" loading="lazy" alt="Done" class="w-full h-full object-cover">
           </div>
@@ -429,7 +470,7 @@
         </div>
 
         <div class="comic-border overflow-hidden flex flex-col">
-          <div class="bg-white p-2 border-b-2 border-gray-950 font-black text-xs">PANEL 04 // AD SLOT</div>
+          <div class="bg-white p-2 border-b-2 border-gray-950 font-black text-xs">Say hi</div>
           <div class="flex-1 bg-zinc-100 flex items-center justify-center min-h-[180px]">
             <img src="assets/hero-comic/hero-4-ad-slot.webp" alt="Future ad slot" class="w-full h-full object-cover" loading="lazy">
           </div>
@@ -447,7 +488,7 @@
     </div>
   </section>
   <footer class="border-t-4 border-gray-900 bg-white py-6 text-center text-xs font-bold text-gray-500">
-    © AtomFable · Chaotic on the surface, serious about privacy · Comics sponsored by AI
+    © AtomFable · Crazy on the surface, awake in the soul · Comics proudly sponsored by &ldquo;Me&rdquo;
   </footer>
 
   <div class="login-modal-backdrop" id="login-modal" role="dialog" aria-modal="true" aria-labelledby="login-modal-title" hidden>
@@ -475,12 +516,18 @@
     function updateERunDistance() {
       const run = document.querySelector('.monster-run');
       const search = document.querySelector('.search-box');
-      if (!run || !search) return;
-      const gap = 28;
+      if (!run || !search || !run.offsetParent) return;
+      const gap = 20;
       const dx = search.getBoundingClientRect().left - run.getBoundingClientRect().right - gap;
-      if (dx > 32) {
-        document.documentElement.style.setProperty('--e-run-px', `${Math.round(Math.min(dx, 640))}px`);
+      if (dx > 40) {
+        document.documentElement.style.setProperty('--e-run-px', `${Math.round(Math.min(dx, 720))}px`);
       }
+    }
+
+    function scheduleERunDistance() {
+      requestAnimationFrame(() => {
+        requestAnimationFrame(updateERunDistance);
+      });
     }
 
     // 简单的卡片前端分类过滤
@@ -490,7 +537,8 @@
 
     function doFilter() {
       const searchText = filterInput.value.toLowerCase().trim();
-      const activeCat = document.querySelector('#category-nav button.bg-orange-500').dataset.cat;
+      const activeBtn = document.querySelector('#category-nav button.is-active');
+      const activeCat = activeBtn ? activeBtn.dataset.cat : 'all';
 
       cards.forEach(card => {
         const matchesCat = activeCat === 'all' || card.dataset.category === activeCat;
@@ -506,18 +554,22 @@
 
     navButtons.forEach(btn => {
       btn.onclick = () => {
-        navButtons.forEach(b => b.classList.remove('bg-orange-500', 'text-white'));
-        btn.classList.add('bg-orange-500', 'text-white');
+        navButtons.forEach(b => b.classList.remove('is-active'));
+        btn.classList.add('is-active');
         doFilter();
       };
     });
 
     filterInput.oninput = doFilter;
     initBrandWord();
-    updateERunDistance();
-    window.addEventListener('resize', updateERunDistance);
+    scheduleERunDistance();
+    window.addEventListener('resize', scheduleERunDistance);
     if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(updateERunDistance);
+      document.fonts.ready.then(scheduleERunDistance);
+    }
+    const headerBar = document.querySelector('.header-bar');
+    if (headerBar && typeof ResizeObserver !== 'undefined') {
+      new ResizeObserver(scheduleERunDistance).observe(headerBar);
     }
 
     const loginTeaser = document.getElementById('login-teaser');
